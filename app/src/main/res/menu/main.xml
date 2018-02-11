@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--<item-->
+        <!--android:id="@+id/home"-->
+        <!--android:title="H/Care"-->
+        <!--android:icon="@drawable/ic_home" />-->
+    <item
+        android:id="@+id/legal"
+        android:title="Treatment"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_home" />
+    <item
+        android:id="@+id/report"
+        android:title="Report"
+        app:showAsAction="always"
+
+        android:icon="@drawable/ic_report" />
+</menu>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/toolbar" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/cpic"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="TODO"
+        android:padding="5dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/com"
+        android:transitionName="cpic" />
+
+    <TextView
+
+        android:id="@+id/cname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/cpic"
+        android:paddingEnd="6dp"
+        android:transitionName="cname"
+        android:text="Mugarura Johnson"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:paddingRight="6dp" />
+
+
+    <TextView
+        android:id="@+id/cprofile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cname"
+       android:layout_centerHorizontal="true"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:padding="2dp"
+        android:transitionName="cprofile"
+        android:text="Hehehe this is one of the best counccillor bro,i mean am the best councillor anyway am going to fetch some information"
+        android:textSize="15sp" />
+
+
+    <Button
+        android:id="@+id/messagebtn"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:textColor="@color/white"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cprofile"
+        android:padding="2dp"
+        android:text="Message"
+        android:background="@drawable/blue_shade_shape"
+        android:textSize="15sp" />
+
+
+
+
+
+
+
+</RelativeLayout>

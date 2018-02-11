@@ -1,0 +1,82 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardElevation="50dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/healthunitphoto"
+            android:layout_width="match_parent"
+            android:transitionName="cpic"
+            android:layout_height="150dp"
+            android:contentDescription="TODO"
+            android:scaleType="centerCrop" />
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/healthunitphoto"
+            android:ellipsize="end"
+            android:transitionName="cname"
+            android:maxLines="3"
+            android:text="Name"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/district"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:text="District"
+            android:ellipsize="end"
+            android:transitionName="cdistrict"
+            android:maxLines="3"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:transitionName="cprofile"
+            android:layout_below="@+id/district"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/open"
+            android:background="@drawable/blue_shade_shape"
+            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:transitionName="copen"
+            android:layout_below="@+id/description"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/map"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/open"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/grey_border"
+            android:padding="5dp"
+            android:text="Map"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>
