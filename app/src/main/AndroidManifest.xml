@@ -15,6 +15,7 @@
         android:protectionLevel="signature" />
     <permission android:name="com.google.android.providers.gsf.permissions.READ_GSERVICES" />
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <application
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
@@ -35,22 +36,29 @@
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".CouncillorsActivity" />
-        <activity android:name=".MeActivity" />
         <activity android:name=".MapActivity" />
-        <activity android:name=".HealthUnitsActivity" />
         <activity android:name=".AppIntroActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+
+        <activity android:name=".Start2Activity">
+
         </activity>
         <activity android:name=".CounsellorDetailActivity" />
         <activity android:name=".ChatActivity" />
         <activity android:name=".EnlargeImageView" />
         <activity android:name=".HealthUnitDetailActivity" />
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".DetailActivity" />
+        <activity android:name=".AddPhoneActivity" />
+        <activity android:name=".StartActivity">
+
+        </activity>
     </application>
 
 </manifest>

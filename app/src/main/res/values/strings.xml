@@ -5,5 +5,36 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="pep_detail">PEP (post-exposure prophylaxis) means taking antiretroviral medicines (ART) after being potentially exposed to HIV to prevent becoming infected. PEP should be used only in emergency situations and must be started within 72 hours after a recent possible exposure to HIV. If you think you’ve recently been exposed to HIV during sex or through sharing needles and works to prepare drugs or if you’ve been sexually assaulted, talk to your health care provider or an emergency room doctor about PEP right away.</string>
     <string name="google_maps_key">AIzaSyA4LJOe4Nkku0ExyxEvHmj9mw80n2jmlu8</string>
+    <array name="districts">
+        <item>Mbarara</item>
+        <item>Kampala</item>
+        <item>Fort Portal</item>
+        <item>Mukono</item>
+        <item>Entebbe</item>
+        <item>Kasese</item>
+        <item>Ibanda</item>
+        <item>Kamwengye</item>
+        <item>Muni</item>
+        <item>Arua</item>
+        <item>Wakiso</item>
+        <item>Jinja</item>
+        <item>Mpigi</item>
+        <item>Kalungu</item>
+        <item>Lwengo</item>
+        <item>Lyantode</item>
+        <item>Kabale</item>
+        <item>Ishaka</item>
+        <item>Kumi</item>
+    </array>
 
+    <array name="relations">
+        <item>Mother</item>
+        <item>Father</item>
+        <item>Brother</item>
+        <item>Sister</item>
+        <item>Friend</item>
+        <item>Classmate</item>
+        <item>GrandParent</item>
+
+    </array>
 </resources>

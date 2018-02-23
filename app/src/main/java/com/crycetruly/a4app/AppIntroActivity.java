@@ -34,10 +34,10 @@ public class AppIntroActivity extends AppIntro2 {
         //setBarColor(Color.parseColor("#000"));
 
 
-        addSlide(AppIntroFragment.newInstance("Have been assualted", "Have you been raped and are looking for help?", R.drawable.counsellor, R.color.colorPrimary));
-        addSlide(AppIntroFragment.newInstance("Get Treatment", "Locate nearby health units where you can get Post Exposure Prevention?",R.drawable.counsellor, R.color.colorPrimary));
-        addSlide(AppIntroFragment.newInstance("Counselling", "Get helped by engaging in a one on one talk with a medical counsellor who will help you with with your issues",R.drawable.counsellor, R.color.colorPrimary));
-        addSlide(AppIntroFragment.newInstance("Seek Justice", "Report to the law enforcers so that the proprietors can be put to law",R.drawable.police, R.color.colorPrimary));
+        addSlide(AppIntroFragment.newInstance("Have been assualted", "Have you been raped and are looking for help?", R.drawable.ic_hospital, R.color.colorPrimary));
+        addSlide(AppIntroFragment.newInstance("Get Treatment", "Locate nearby health units where you can get Post Exposure Prevention?",R.drawable.ic_hospital, R.color.colorPrimary));
+        addSlide(AppIntroFragment.newInstance("Counselling", "Get helped by engaging in a one on one talk with a medical counsellor who will help you with with your issues",R.drawable.ic_hospital, R.color.colorPrimary));
+        addSlide(AppIntroFragment.newInstance("Seek Justice", "Report to the law enforcers so that the proprietors can be put to law",R.drawable.ic_hospital, R.color.colorPrimary));
 
 
     }

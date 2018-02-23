@@ -1,18 +1,21 @@
 package com.crycetruly.a4app;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -100,10 +103,36 @@ public class MainActivity extends AppCompatActivity {
             card3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i=new Intent(mContext,DetailActivity.class);
-                    MainActivity.this.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
-                    i.putExtra("key","report");
-                    startActivity(i);
+
+                    AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+                    CharSequence [] op={"Report by Self","Report by some one else"};
+                    builder.setItems(op, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            if (i==0){
+                                Intent intent=new Intent(getBaseContext(),AddPhoneActivity.class);
+                                SharedPreferences sharedPreferences= getSharedPreferences("reportby",MODE_PRIVATE);
+                                SharedPreferences.Editor editor=sharedPreferences.edit();
+                                editor.putString("reportedby","self");
+                                editor.apply();
+                                startActivity(intent);
+                            }else {
+                                Intent intent=new Intent(getBaseContext(),AddPhoneActivity.class);
+                                SharedPreferences sharedPreferences= getSharedPreferences("reportby",MODE_PRIVATE);
+                                SharedPreferences.Editor editor=sharedPreferences.edit();
+                                editor.putString("reportedby","other");
+                                editor.apply();
+                                startActivity(intent);
+                            }
+                        }
+                    }).setCancelable(false).show();
+
+
+//               todo use me
+//                    Intent i=new Intent(mContext,DetailActivity.class);
+//                    MainActivity.this.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+//                    i.putExtra("key","report");
+//                    startActivity(i);
 
                 }
             });
@@ -150,7 +179,6 @@ getDeviceLocation();
                                             Log.d(TAG, "onComplete: " + currentLocation.getLatitude() + currentLocation.getLongitude());
                                         } catch (NullPointerException e) {
                                             Log.d(TAG, "onComplete: current location is null");
-                                            Toast.makeText(getBaseContext(), "unable to get current location", Toast.LENGTH_SHORT).show();
 
                                         }
                                         Address place = addresses.get(0);
@@ -184,8 +212,7 @@ getDeviceLocation();
                                         }
                                         editor.apply();
                                     } catch (NullPointerException e) {
-                                        Toast.makeText(getBaseContext(), "Location Unavailable sowi", Toast.LENGTH_SHORT).show();
-                                    }
+                                       }
 
 
                                 } catch (IOException e) {

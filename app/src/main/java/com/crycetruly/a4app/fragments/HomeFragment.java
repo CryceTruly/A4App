@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -44,7 +45,11 @@ import com.crycetruly.a4app.models.Healthunit;
 import com.crycetruly.a4app.utils.Preferences;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
@@ -54,6 +59,7 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     FirestoreRecyclerAdapter adapter;
     ProgressBar progressBar;
+    String photourl;
 
     @Nullable
     @Override
@@ -70,8 +76,9 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         recyclerView.setHasFixedSize(true);
         com.google.firebase.firestore.Query query = FirebaseFirestore.getInstance()
-                .collection("healthunits")
-                .whereEqualTo("locality", Preferences.getLocality(getContext()));
+                .collection("healthunits").whereEqualTo("locality","Mbarara");
+
+                //todo afix for location on phones probaby build a serve with no failure issues.whereEqualTo("locality", Preferences.getLocality(getContext()));
 
 
         FirestoreRecyclerOptions<Healthunit> options = new FirestoreRecyclerOptions.Builder<Healthunit>()
@@ -81,27 +88,53 @@ public class HomeFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<Healthunit, ChatHolder>(options) {
             @Override
             public void onBindViewHolder(@NonNull final ChatHolder holder, final int position, final Healthunit model) {
+               final String key = getSnapshots().getSnapshot(position).getId();
+               FirebaseStorage storage=FirebaseStorage.getInstance();
+
+                // Create a storage reference from our app
+                StorageReference storageRef = storage.getReference();
+   storageRef.child(model.getPhoto()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        // Got the download URL for 'users/me/profile.png'
+                    photourl=String.valueOf(uri);
+
+               try {
+                   Glide.with(getContext()).load(photourl).into(holder.cpic);
+               }catch (NullPointerException e){
+
+               }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle any errors
+                     }
+                });
+
+
                 Log.d(TAG, "onBindViewHolder: " + model.toString());
                 holder.setLocality(model.getLocality());
                 holder.setName(model.getName());
                 holder.setDescription(model.getDescription());
                 holder.setOpen(model.getOpen());
-                holder.setPhoto(model.getPhoto(), getContext());
+
                 progressBar.setVisibility(View.GONE);
 
 
                 holder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String key = getSnapshots().getSnapshot(position).getId();
+
                         Log.d(TAG, "onClick: key");
                         Intent i = new Intent(getContext(), HealthUnitDetailActivity.class);
                         i.putExtra("snap", key);
                         i.putExtra("cname", model.getName());
+                        i.putExtra("cpic", photourl);
                         i.putExtra("district", model.getLocality());
-                        i.putExtra("cpic", model.getPhoto());
                         i.putExtra("cprofile", model.getDescription());
                         i.putExtra("copen", model.getOpen());
+                        i.putExtra("phone", model.getPhone());
                         i.putExtra("lat", model.getLat());
                         i.putExtra("lng", model.getLng());
                         Pair[] pairs = new Pair[4];
@@ -115,8 +148,10 @@ public class HomeFragment extends Fragment {
                             ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(getActivity(), pairs);
                             startActivity(i, activityOptions.toBundle());
 
+                        }else{
+                            startActivity(i);
                         }
-                        startActivity(i);
+
                     }
                 });
 
@@ -188,20 +223,7 @@ public class HomeFragment extends Fragment {
 
         public void setPhoto(String photo, Context contex) {
             ImageView textView = mView.findViewById(R.id.healthunitphoto);
-            Glide.with(contex).load(photo).listener(new RequestListener<Drawable>() {
-                @Override
-                public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                    Log.d(TAG, "onLoadFailed: loading photo failed " + e.getMessage());
-
-                    return false;
-                }
-
-                @Override
-                public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                    Log.d(TAG, "onResourceReady: photo loaded ");
-                    return false;
-                }
-            }).into(textView);
+            Glide.with(contex).load(photo).into(textView);
         }
 
     }

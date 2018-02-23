@@ -52,6 +52,8 @@ Button message;
             public void onClick(View view) {
                 Intent i=new Intent(getBaseContext(),ChatActivity.class);
                 i.putExtra("user_id",key);
+                i.putExtra("name",name);
+                i.putExtra("image",pic);
                 startActivity(i);
             }
         });

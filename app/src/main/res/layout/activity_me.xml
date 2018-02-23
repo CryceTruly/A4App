@@ -1,50 +1,28 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.crycetruly.a4app.MeActivity">
-    <include
-        layout="@layout/toolbar"
-        android:id="@+id/toolbar" />
-
-
+  xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/user_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
+        <include layout="@layout/snippet_about_me">
 
-            android:textSize="17sp" />
+        </include>
 
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="17sp" />
+        <include layout="@layout/snippet_about_pep">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:textSize="17sp"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="wrap_content" />
+        </include>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:textSize="17sp"
-            android:id="@+id/adminarea"
-            android:layout_gravity="center_horizontal"
-            android:layout_height="wrap_content" />
+        <include layout="@layout/snippet_about_important">
+
+        </include>
+        <include layout="@layout/snippet_about_app">
+
+        </include>
+
 
     </LinearLayout>
 
-</RelativeLayout>
+</ScrollView>

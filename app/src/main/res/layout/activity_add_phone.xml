@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.crycetruly.a4app.AddPhoneActivity">
+
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/phonevtoolbar" />
+
+
+    <LinearLayout
+        android:id="@+id/main_rel_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/phonevtoolbar"
+        android:layout_margin="10dp"
+        android:background="@drawable/grey_rounded_button"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <EditText
+            android:id="@+id/searchUserField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:allowUndo="true"
+            android:background="@null"
+            android:hint="Enter your Phone Number"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:maxLines="1"
+
+            android:paddingBottom="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="14dp" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:visibility="gone" />
+
+
+    </LinearLayout>
+
+
+
+
+
+    <Button
+        android:id="@+id/verify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/main_rel_layout"
+        android:layout_alignRight="@+id/main_rel_layout"
+        android:layout_below="@+id/main_rel_layout"
+        android:layout_marginEnd="12dp"
+        android:layout_marginRight="12dp"
+        android:background="@drawable/grey_rounded_button"
+        android:layout_marginTop="16dp"
+        android:text="Verify" />
+
+
+    <LinearLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_rel_layout"
+        android:layout_margin="10dp"
+        android:background="@drawable/grey_rounded_button"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <EditText
+            android:id="@+id/nameInputSystem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="9"
+            android:allowUndo="true"
+            android:background="@null"
+            android:hint="Add name"
+            android:inputType="phone"
+            android:maxLength="10"
+            android:maxLines="1"
+
+            android:paddingBottom="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="14dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:id="@+id/addnamebtn"
+            android:text="Add"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

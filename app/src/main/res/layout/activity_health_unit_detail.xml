@@ -31,8 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/healthunitphoto"
-            android:ellipsize="end"
             android:layout_centerHorizontal="true"
+            android:ellipsize="end"
             android:maxLines="3"
             android:text="Name"
             android:textColor="@color/black"
@@ -44,9 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/name"
+            android:layout_centerHorizontal="true"
             android:ellipsize="end"
             android:maxLines="3"
-            android:layout_centerHorizontal="true"
             android:text="District"
             android:textColor="@color/black"
             android:textSize="15sp"
@@ -57,11 +57,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/district"
-            android:ellipsize="end"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
+            android:ellipsize="end"
             android:maxLines="3"
-            android:layout_centerHorizontal="true"
             android:textSize="15sp"
             android:transitionName="cprofile" />
 
@@ -70,30 +70,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/description"
-            android:padding="5dp"
-            android:minWidth="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/blue_shade_shape"
+            android:minWidth="100dp"
+            android:padding="5dp"
             android:textColor="@color/white"
             android:textSize="15sp"
-          android:layout_marginBottom="5dp"
-            android:layout_centerHorizontal="true"
             android:transitionName="copen" />
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/map"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="120dp"
-        android:background="@drawable/grey_border"
-        android:padding="5dp"
-        android:text="Map"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="17sp" />
 
 </RelativeLayout>
 

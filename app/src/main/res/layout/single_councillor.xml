@@ -12,8 +12,7 @@
         android:contentDescription="TODO"
         android:padding="10dp"
         android:transitionName="cpic"
-        android:scaleType="centerCrop"
-        android:src="@drawable/com" />
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/cname"
@@ -26,7 +25,6 @@
         android:transitionName="cname"
         android:ellipsize="end"
         android:layout_toRightOf="@+id/cpic"
-        android:text="Mugarura Johnson"
         android:textColor="@color/black"
         android:textSize="17sp"
         android:paddingRight="6dp" />

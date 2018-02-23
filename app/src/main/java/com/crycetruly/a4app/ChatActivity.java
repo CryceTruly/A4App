@@ -66,6 +66,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -170,16 +174,13 @@ public class ChatActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();
-        mUserRf = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentUserId);
+        mUserRf = FirebaseDatabase.getInstance().getReference().child("users").child(mCurrentUserId);
         mUserRf.child("online").setValue("true");
         final String user_id = getIntent().getStringExtra("user_id");
         mChatUser = user_id;
-
-
 //--------------CHANGE THE READ STATUS------------------
         mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("seen").setValue(true);
-        currentUserDb = "Users";
-        handleBlockedUnfriendedUsers(mCurrentUserId, mChatUser);
+        currentUserDb = "users";
 
         mStorage = FirebaseStorage.getInstance().getReference();
 
@@ -251,19 +252,6 @@ public class ChatActivity extends AppCompatActivity {
 //                            getDeviceLocation();
                             //todo might need this
 
-//                            Intent intent=new Intent(mContext,PickLocationActivity.class);
-//                            intent.putExtra("user_id",mChatUser);
-//                            startActivity(intent);
-//                            PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-//
-//                            try {
-//                                startActivityForResult(builder.build(ChatActivity.this), PLACE_PICKER_REQUEST);
-//                            } catch (GooglePlayServicesRepairableException e) {
-//                                Log.e(TAG, "onClick: GooglePlayServicesRepairableException: " + e.getMessage());
-//                            } catch (GooglePlayServicesNotAvailableException e) {
-//                                Log.e(TAG, "onClick: GooglePlayServicesNotAvailableException: " + e.getMessage());
-//                            }
-
 
                         }
 
@@ -292,38 +280,24 @@ public class ChatActivity extends AppCompatActivity {
         mMessagesList.setAdapter(mAdapter);
 
         loadMessages();
-
-        mRootRef.child(currentUserDb).child(mChatUser).addValueEventListener(new ValueEventListener() {
+        FirebaseFirestore firebaseFirestore=FirebaseFirestore.getInstance();
+        firebaseFirestore.collection("counsellors").document(mChatUser).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
                 try {
-                    String name = dataSnapshot.child("name").getValue().toString();
+                    String name = documentSnapshot.get("name").toString();
                     mTitleView.setText(Handy.getTrimmedName(name));
-                    String online = dataSnapshot.child("online").getValue().toString();
-                    final String image = dataSnapshot.child("image").getValue().toString();
+                    String online = documentSnapshot.get("status").toString();
 
-                    try {
-                        Glide.with(mContext)
-                                .load(image)
-                                .into(mProfileImage);
 
-                        mProfileImage.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent(mContext, EnlargeImageView.class);
-                                intent.putExtra("image_url", image);
-                                startActivity(intent);
-                            }
-                        });
-
-                    } catch (IllegalArgumentException e) {
-                        //cnt loadin  destroyed activty
-                    }
                     if (online.equals("true")) {
 
                         mLastSeenView.setText("Active now");
 
                     } else {
+
+      //                  TODO FIX AFTER CREATING  CLOUD UNCTION TO BASICALLY UPDATE THE DOCUMENYT DATA WITH CORRECT VALUE
+ mLastSeenView.setText("");
                         long lastTime = Long.parseLong(online);
 
                         String lastSeenTime = GetShortTimeAgo.getTimeAgo(lastTime, getApplicationContext());
@@ -333,25 +307,31 @@ public class ChatActivity extends AppCompatActivity {
 
 
                     }
-                } catch (NullPointerException e) {
+                } catch (NullPointerException eh) {
 
                 }
+                final String image = documentSnapshot.get("photo").toString();
 
                 try {
+                    Glide.with(mContext)
+                            .load(image)
+                            .into(mProfileImage);
 
+                    mProfileImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent intent = new Intent(mContext, EnlargeImageView.class);
+                            intent.putExtra("image_url", image);
+                            startActivity(intent);
+                        }
+                    });
 
-                } catch (Exception e) {
-
+                } catch (IllegalArgumentException exx) {
+                    //cnt loadin  destroyed activty
                 }
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
+
 
 //-------------------------------CREATION OF THE CHAT NODE TO QUERY FOR THE CHATS ACTIVITY--------------------------//
         mRootRef.child("Chat").child(mCurrentUserId).addValueEventListener(new ValueEventListener() {
@@ -413,6 +393,10 @@ public class ChatActivity extends AppCompatActivity {
 //            }
 //        });
 
+
+    }
+
+    private void setDetailsToWidgets() {
 
     }
 
@@ -561,81 +545,19 @@ public class ChatActivity extends AppCompatActivity {
         }
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
-//                Place place = PlacePicker.getPlace(this, data);
-//                Log.d(TAG, "onActivityResult: About place" + place);
-//                LatLng latLng = place.getLatLng();
-//                Double latitude = latLng.latitude;
-//                Double longtitude = latLng.longitude;
-//                String message = String.valueOf(latitude + " " + longtitude);
-//                Log.d(TAG, "locmeso " + message);
-//                sendMessage(message, "location");
-
+//todo location
             }
 
         }
     }
 
 
-    //----------------MORE MESSAGES ON REFERESH----------------------//
-    private void loadMoreMessages() {
-        Query mMessageQuery = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser);
-        mMessageQuery.orderByKey().endAt(lastKey).limitToLast(10);
-        mMessageQuery.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                Message message = dataSnapshot.getValue(Message.class);
-                String messageKeey = dataSnapshot.getKey();
-
-
-                if (!mPrevKey.equals(messageKeey)) {
-                    messagesList.add(itemPosition++, message);
-
-                }
-                if (itemPosition == 1) {
-
-                    lastKey = messageKeey;
-                }
-                if (mPrevKey.equals(messageKeey)) {
-                    mPrevKey = lastKey;
-                }
-
-                mAdapter.notifyDataSetChanged();
-                mMessagesList.scrollToPosition(messagesList.size() - 1);
-                swipeRefreshLayout.setRefreshing(false);
-                chating.scrollTo(10, 0);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
 
 
     private void loadMessages() {
 
-        Query mMessageQuery = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser);
-        mMessageQuery.limitToLast(10);
-
-        mMessageQuery.addChildEventListener(new ChildEventListener() {
+        Query mMessageQuery = mRootRef.child("messages").child(mCurrentUserId).child(mChatUser);
+       mMessageQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
@@ -681,15 +603,13 @@ public class ChatActivity extends AppCompatActivity {
         Log.d(TAG, "sendMessage: sending " + message + " of type " + type);
         String mes = message.trim();
         if (!TextUtils.isEmpty(mes)) {
-
             String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+            String current_user_ref = "messages/" + mCurrentUserId + "/" + mChatUser;
+            String chat_user_ref = "messages/" + mChatUser + "/" + mCurrentUserId;
 
-            String current_user_ref = "Messages/" + mCurrentUserId + "/" + mChatUser;
-            String chat_user_ref = "Messages/" + mChatUser + "/" + mCurrentUserId;
-
-            DatabaseReference user_message_push = mRootRef.child("Messages")
+            DatabaseReference user_message_push = mRootRef.child("messages")
                     .child(mCurrentUserId).child(mChatUser).push();
-            DatabaseReference newNotificationref = mRootRef.child("MessageNotifications")
+            DatabaseReference newNotificationref = mRootRef.child("messageNotifications")
                     .child(mCurrentUserId).child(mChatUser).push();
             String newNotificationId = newNotificationref.getKey();
 
@@ -697,7 +617,6 @@ public class ChatActivity extends AppCompatActivity {
             notificationData.put("from", mCurrentUserId);
             notificationData.put("message", mes);
             String push_id = user_message_push.getKey();
-
             Map<String, Object> messageMap = new HashMap<>();
             messageMap.put("message", mes);
             messageMap.put("seen", false);
@@ -723,6 +642,7 @@ public class ChatActivity extends AppCompatActivity {
             chatAddMap.put("sendDate", currentDate);
             chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
             chatAddMap.put("from", mCurrentUserId);
+            chatAddMap.put("userName", "My display name");
             //todo find aaway to enhance loading,possibly update the chat nodde with last info
             Map<String, Object> chatUserMap = new HashMap<String, Object>();
             chatUserMap.put("Chat/" + mCurrentUserId + "/" + mChatUser, chatAddMap);
@@ -739,11 +659,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
                     } else {
-                        Map map = new HashMap();
-                        Double v = points + 0.25;
-                        map.put("points", v);
-                        map.put("fitnessPoint", Handy.fitnessPoint(v));
-                        userPoints.setValue(map);
+
                         //---------------update seen-----------------------//
                         mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("seen").setValue(true);
                         mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("timestamp").setValue(ServerValue.TIMESTAMP);
@@ -763,7 +679,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users");
         FirebaseAuth firebaseAuth;
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -777,7 +693,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users");
         FirebaseAuth firebaseAuth;
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -831,37 +747,7 @@ public class ChatActivity extends AppCompatActivity {
         return getIntent().getFlags();
     }
 
-    //HANDLING BLOCKED CONTACTS
-//TODO FOR NOW IF ER ARE NT FRIENDS WE CANT TLK,IF UR ANY PLACE YOU CAN TALK SINCE ITS ME INITIATED THE TALK
-    private void handleBlockedUnfriendedUsers(String mCurrentUserId, final String mChatUser) {
-        FirebaseDatabase.getInstance().getReference().child("Friends").child(mCurrentUserId).child(mChatUser).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.exists()) {
-                    FirebaseDatabase.getInstance().getReference().child("Place_Users").child(mChatUser).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (!dataSnapshot.exists()) {
-                                linearLayout.setVisibility(View.GONE);
-                                relativeLayout.setVisibility(View.VISIBLE);
-                            }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

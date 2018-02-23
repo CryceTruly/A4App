@@ -1,0 +1,107 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_bar_line"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Important Links"
+            android:textSize="17sp"
+            android:id="@+id/acc"
+            android:textColor="@color/black"
+            android:layout_marginLeft="35dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/img"
+                android:src="@drawable/ic_hospital"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_toEndOf="@+id/img"
+                android:text="Ministry of gender and women health"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="17sp"
+                android:layout_toRightOf="@+id/img" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/img2"
+                android:src="@drawable/ic_hospital"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/img2"
+                android:text="Ministry of Health"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="17sp"
+                android:layout_toRightOf="@+id/img2" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/img3"
+                android:src="@drawable/ic_organisation"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/adminarea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/img3"
+                android:text="United Nation Human Rights Activists"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="17sp"
+                android:layout_toRightOf="@+id/img3" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/img4"
+                android:src="@drawable/icp_police"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/adminarea2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/img4"
+                android:text="Uganda Police Force"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="17sp"
+                android:layout_toRightOf="@+id/img4" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</merge>

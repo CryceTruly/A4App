@@ -29,7 +29,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-database:3.2.1'
 //circle imageview
     compile 'com.ebanx:swipe-button:0.8.3'
-    
+
     compile 'com.github.lguipeng:BubbleView:1.0.1'
 
     compile 'de.hdodenhof:circleimageview:2.2.0'
@@ -58,6 +58,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:design:27.0.2'
 }
+
+
+
+
 
 
 

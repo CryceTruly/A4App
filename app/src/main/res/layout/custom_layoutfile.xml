@@ -18,11 +18,10 @@
             android:padding="2dp">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/bg"
                 android:id="@+id/healthunitphoto"
-                android:scaleType="center"/>
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:src="@drawable/bg" />
 
             <TextView
                 android:layout_width="wrap_content"

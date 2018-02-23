@@ -16,6 +16,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 /**
@@ -23,6 +25,13 @@ import java.util.Locale;
  */
 
 public class Handy {
+
+    public static int nowTime(){
+        Calendar calendar=Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyyMMdd");
+        String today= simpleDateFormat.format(calendar.getTime());
+        return Integer.parseInt(today);
+    }
     private static final String TAG = "Handy";
     //----------------SORTING HING ISSUES ----------------------
 

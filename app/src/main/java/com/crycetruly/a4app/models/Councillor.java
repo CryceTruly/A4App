@@ -6,25 +6,25 @@ package com.crycetruly.a4app.models;
 
 public class Councillor {
     private String name,profile,photo,gender;
-    private Boolean away;
+    private String status;
 
     public Councillor() {
     }
 
-    public Councillor(String name, String profile, String photo, String gender, boolean away) {
+    public Councillor(String name, String profile, String photo, String gender) {
         this.name = name;
         this.profile = profile;
         this.photo = photo;
         this.gender = gender;
-        this.away = away;
+
     }
 
-    public boolean isAway() {
-        return away;
+    public String getStatus() {
+        return status;
     }
 
-    public void setAway(boolean away) {
-        this.away = away;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getName() {

@@ -1,0 +1,64 @@
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_bar_line"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Post Exposure Prevention"
+            android:textSize="17sp"
+            android:id="@+id/acc"
+            android:textColor="@color/black"
+            android:layout_marginLeft="35dp"
+            android:padding="5dp"
+            android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/img"
+                android:src="@drawable/ic_info_black"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/img"
+                android:text="About Pep"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="17sp"
+                android:layout_toRightOf="@+id/img" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/img2"
+                android:src="@drawable/ic_info_black"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/img2"
+                android:text="Where to get Pep"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:textSize="17sp"
+                android:layout_toRightOf="@+id/img2" />
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+</merge>
